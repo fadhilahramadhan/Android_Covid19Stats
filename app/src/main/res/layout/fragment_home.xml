@@ -4,9 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text_home"
-        android:theme="@style/TitleTheme"/>
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textTitleStats"
+            android:text="@string/label_covid19In"
+            android:theme="@style/TitleTheme"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_rounded_blue"/>
+            <TextView
+                android:id="@+id/textActiveCase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/NormalTextTheme"
+                android:textColor="#7790c5"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_rounded_green"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:id="@+id/textCured"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/NormalTextTheme"
+                android:textColor="#67cfa5"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_rounded_red"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:id="@+id/textDeath"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/NormalTextTheme"
+                android:textColor="#ed605e"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>

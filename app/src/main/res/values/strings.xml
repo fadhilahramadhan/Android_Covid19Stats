@@ -3,4 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_statistic">Statistic</string>
     <string name="label_pleaseWait">Please wait..</string>
+
+    <string name="label_covid19In">Covid-19 in </string>
+    <string name="label_activeCase">Active case</string>
+    <string name="label_cured">Cured</string>
+    <string name="label_death">Death</string>
 </resources>

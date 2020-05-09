@@ -1,23 +1,28 @@
 package fadhilah.ramadhan.covid19stats.base;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import java.util.List;
 
 import fadhilah.ramadhan.covid19stats.global.GlobalVar;
 import fadhilah.ramadhan.covid19stats.model.DataStats;
 
-public class BaseGlobalVar extends AppCompatActivity {
+public class BaseGlobalVar extends Fragment {
 
-    private List<DataStats> dataStatsCountry;
+    public List<DataStats> dataStatsCountry;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         dataStatsCountry = GlobalVar.getInstance().getDataStatsCountry();
     }
+
+
 }
