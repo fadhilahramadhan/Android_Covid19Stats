@@ -8,4 +8,6 @@
     <string name="label_activeCase">Active case</string>
     <string name="label_cured">Cured</string>
     <string name="label_death">Death</string>
+
+    <string name="label_topCountries">Top Countries</string>
 </resources>

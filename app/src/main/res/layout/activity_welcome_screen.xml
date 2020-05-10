@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/colorPrimary">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -17,5 +18,6 @@
         android:id="@+id/textView"
         android:theme="@style/NormalTextTheme"
         android:text="@string/label_pleaseWait"
+        android:textColor="@color/colorAccent"
         android:layout_marginLeft="10dp"/>
 </LinearLayout>

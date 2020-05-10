@@ -4,17 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textTitleStats"
+            android:id="@+id/titleStatsText"
             android:text="@string/label_covid19In"
-            android:theme="@style/TitleTheme"/>
+            android:theme="@style/TitleTheme"
+            android:layout_margin="20dp"
+            android:layout_gravity="left"/>
+
+        <com.txusballesteros.widgets.FitChart
+            android:id="@+id/homeDataStats"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:strokeSize="13dp"
+            app:valueStrokeColor="#ff0000"
+            app:backStrokeColor="@color/colorAccent"
+            app:animationMode="overdraw" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,41 +38,41 @@
             android:layout_marginTop="10dp">
             <ImageView
                 android:layout_width="40dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:background="@drawable/bg_rounded_blue"/>
             <TextView
-                android:id="@+id/textActiveCase"
+                android:id="@+id/activeCaseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/NormalTextTheme"
-                android:textColor="#7790c5"
+                android:textColor="@color/bg_Blue"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"/>
 
             <ImageView
                 android:layout_width="40dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:background="@drawable/bg_rounded_green"
                 android:layout_marginLeft="10dp"/>
             <TextView
-                android:id="@+id/textCured"
+                android:id="@+id/curedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/NormalTextTheme"
-                android:textColor="#67cfa5"
+                android:textColor="@color/bg_Green"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"/>
             <ImageView
                 android:layout_width="40dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:background="@drawable/bg_rounded_red"
                 android:layout_marginLeft="10dp"/>
             <TextView
-                android:id="@+id/textDeath"
+                android:id="@+id/deathText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/NormalTextTheme"
-                android:textColor="#ed605e"
+                android:textColor="@color/bg_Red"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"/>
 

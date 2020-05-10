@@ -8,13 +8,11 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="fadhilah.ramadhan.covid19stats.fragments.HomeFragment"
-        android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_statistic"
         android:name="fadhilah.ramadhan.covid19stats.fragments.StatisticFragment"
-        android:label="@string/title_statistic"
         tools:layout="@layout/fragment_statistic" />
 
 </navigation>
