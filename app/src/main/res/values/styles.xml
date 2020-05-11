@@ -18,7 +18,7 @@
     <style name="TitleTheme" parent="TextTheme">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
     <style name="NormalTextTheme" parent="TextTheme">
@@ -30,4 +30,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="ProgressBar" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/colorDark</item>
+    </style>
 </resources>

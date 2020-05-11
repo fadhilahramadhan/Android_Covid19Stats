@@ -2,81 +2,162 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/titleStatsText"
-            android:text="@string/label_covid19In"
-            android:theme="@style/TitleTheme"
-            android:layout_margin="20dp"
-            android:layout_gravity="left"/>
-
-        <com.txusballesteros.widgets.FitChart
-            android:id="@+id/homeDataStats"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:strokeSize="13dp"
-            app:valueStrokeColor="#ff0000"
-            app:backStrokeColor="@color/colorAccent"
-            app:animationMode="overdraw" />
-
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_rounded_blue"/>
-            <TextView
-                android:id="@+id/activeCaseText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/NormalTextTheme"
-                android:textColor="@color/bg_Blue"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:gravity="center">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_rounded_green"
-                android:layout_marginLeft="10dp"/>
             <TextView
-                android:id="@+id/curedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/NormalTextTheme"
-                android:textColor="@color/bg_Green"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center"/>
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_rounded_red"
-                android:layout_marginLeft="10dp"/>
+                android:id="@+id/titleStatsText"
+                android:text="@string/label_covid19In"
+                android:theme="@style/TitleTheme"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="left"/>
+
             <TextView
-                android:id="@+id/deathText"
+                android:id="@+id/dateStatsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="20dp"
+                android:text="Date"
                 android:theme="@style/NormalTextTheme"
-                android:textColor="@color/bg_Red"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center"/>
+                android:textColor="@color/black"/>
+
+            <com.txusballesteros.widgets.FitChart
+                android:id="@+id/homeDataStats"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                app:strokeSize="13dp"
+                app:valueStrokeColor="#ff0000"
+                app:backStrokeColor="@color/colorAccent"
+                app:animationMode="overdraw" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_rounded_blue"/>
+                <TextView
+                    android:id="@+id/activeCaseText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/NormalTextTheme"
+                    android:textColor="@color/bg_Blue"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"/>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_rounded_green"
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:id="@+id/curedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/NormalTextTheme"
+                    android:textColor="@color/bg_Green"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"/>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_rounded_red"
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:id="@+id/deathText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/NormalTextTheme"
+                    android:textColor="@color/bg_Red"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/moreDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/TitleTheme"
+                android:drawableEnd="@drawable/ic_arrow_forward"
+                android:text="@string/label_moreDetails"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="10dp"
+                android:background="@drawable/bg_rounded_outline_blue"
+                android:textSize="14sp"
+                android:paddingRight="30dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleSymptoms"
+                android:text="@string/label_covid19Symptoms"
+                android:theme="@style/TitleTheme"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="left"/>
+
+            <GridView
+                android:id="@+id/symptomsGrid"
+                android:layout_width="match_parent"
+                android:layout_height="345dp"
+                android:numColumns="2"
+                android:horizontalSpacing="20dp"
+                android:verticalSpacing="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:clickable="false"
+                android:scrollbars="none"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titlePreventCovid"
+                android:text="@string/label_preventCovid"
+                android:theme="@style/TitleTheme"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="left"/>
+
+            <com.github.islamkhsh.CardSliderViewPager
+                android:id="@+id/preventCovidSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardSlider_smallScaleFactor="0.9"
+                app:cardSlider_otherPagesWidth="24dp"
+                app:cardSlider_pageMargin="5dp"
+                app:auto_slide_time="3"
+                app:cardSlider_indicator="@id/indicator"
+                />
+
+            <com.github.islamkhsh.CardSliderIndicator
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/indicator"
+                app:indicatorsToShow="5"
+                android:layout_marginBottom="30dp"/>
 
         </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
 </RelativeLayout>

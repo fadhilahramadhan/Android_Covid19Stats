@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import fadhilah.ramadhan.covid19stats.R;
-import fadhilah.ramadhan.covid19stats.global.GlobalVar;
+import fadhilah.ramadhan.covid19stats.model.GlobalVar;
 import fadhilah.ramadhan.covid19stats.util.Constant;
 import fadhilah.ramadhan.covid19stats.util.Utility;
 import fadhilah.ramadhan.covid19stats.util.service.AsyncTaskCompleteListener;

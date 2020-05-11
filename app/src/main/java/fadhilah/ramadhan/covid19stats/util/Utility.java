@@ -1,14 +1,22 @@
 package fadhilah.ramadhan.covid19stats.util;
 
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import fadhilah.ramadhan.covid19stats.global.GlobalVar;
+import fadhilah.ramadhan.covid19stats.model.GlobalVar;
 import fadhilah.ramadhan.covid19stats.model.DataStats;
 
 public class Utility {
@@ -39,7 +47,7 @@ public class Utility {
                 dataStatsList.add(dataStats);
             }
         } catch (JSONException e) {
-            Log.e("JSONException aaa", e.getMessage());
+            Log.e("JSONException : ", e.getMessage());
         }
         return dataStatsList;
     }
@@ -60,8 +68,53 @@ public class Utility {
                 dataStatsList.add(dataStats);
             }
         } catch (JSONException e) {
-            Log.e("JSONException", e.getMessage());
+            Log.e("JSONException : ", e.getMessage());
         }
         return dataStatsList;
+    }
+
+    public static final DataStats buildDataGlobal(String json) {
+        DataStats dataStats = new DataStats();
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+                dataStats.setCured(jsonObject.getInt("TotalRecovered"));
+                dataStats.setDeath(jsonObject.getInt("TotalDeaths"));
+                dataStats.setPostive(jsonObject.getInt("TotalConfirmed"));
+        } catch (JSONException e) {
+            Log.e("JSONException : ", e.getMessage());
+        }
+        return dataStats;
+    }
+
+    public static final String dateFormat(String format, String dateInput){
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat outputFormat = new SimpleDateFormat(format);
+        Date date = null;
+        try{
+            date = inputFormat.parse(dateInput);
+        }catch (ParseException e){
+            Log.e("ParseException : ", e.getMessage());
+        }
+        return outputFormat.format(date);
+    }
+
+    public static void setListViewHeight(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            if (listItem instanceof ViewGroup)
+                listItem.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 }
