@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import fadhilah.ramadhan.covid19stats.Activity.ChangeLanguageActivity;
 import fadhilah.ramadhan.covid19stats.Activity.DetailsStatisticActivity;
 import fadhilah.ramadhan.covid19stats.R;
 import fadhilah.ramadhan.covid19stats.adapter.PreventCovidAdapter;
@@ -45,12 +46,12 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
     private GridView symptomsGrid;
     private ScrollView scrollView;
     private DecimalFormat formatter = new DecimalFormat("#,###,###");
+    private ImageView changeLanguage;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
 
         titleStatText       = v.findViewById(R.id.titleStatsText);
         titleSymptoms       = v.findViewById(R.id.titleSymptoms);
@@ -62,6 +63,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
         dateStatsText       = v.findViewById(R.id.dateStatsText);
         moreDetail          = v.findViewById(R.id.moreDetail);
         scrollView          = v.findViewById(R.id.scroll);
+        changeLanguage      = v.findViewById(R.id.changeLanguage);
 
         dataStats = dataStatsCountry.get(dataStatsCountry.size() - 1);
 
@@ -82,6 +84,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
         preventCovidSlider.setAdapter(new PreventCovidAdapter(getContext(), getResources().getStringArray(R.array.array_preventCovid)));
 
         moreDetail.setOnClickListener(this);
+        changeLanguage.setOnClickListener(this);
 
         scrollView.smoothScrollTo(0,0);
         setFont();
@@ -117,6 +120,9 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
             intent.putParcelableArrayListExtra("dataStats", (ArrayList<? extends DataStats>) dataStatsCountry);
             intent.putExtra("country", dataStats.getCountry());
             startActivityForResult(intent,1);
+        }else if(v.getId() == R.id.changeLanguage){
+            Intent intent = new Intent(getActivity(), ChangeLanguageActivity.class);
+            startActivity(intent);
         }
     }
 }

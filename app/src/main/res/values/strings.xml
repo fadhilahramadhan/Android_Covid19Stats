@@ -21,6 +21,7 @@
     <string name="message_gagal">Failed</string>
     <string name="button_close">Close</string>
     <string name="error_noInternet">No internet connection</string>
+    <string name="label_language">Language</string>
 
     <array name="array_covidSysmptoms">
         <item>Fever</item>

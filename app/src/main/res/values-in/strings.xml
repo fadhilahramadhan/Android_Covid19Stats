@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name = "app_name">Statistik Covid19</string>
+        <string name = "title_home">Beranda</string>
+        <string name = "title_statistic">Statistik</string>
+        <string name = "label_pleaseWait">Harap tunggu..</string>
+        <string name = "label_covid19In">Covid-19 di</string>
+        <string name = "label_activeCase">Kasus aktif</string>
+        <string name = "label_positive">Positif</string>
+        <string name = "label_cured">Pulih</string>
+        <string name = "label_recovered">Pulih</string>
+        <string name = "label_death">Meninggal</string>
+        <string name = "label_topCountries">Negara Teratas</string>
+        <string name = "label_moreDetails">Detail lebih lanjut</string>
+        <string name = "label_covid19Symptoms">Gejala Covid19</string>
+        <string name = "label_preventCovid">Ambil langkah untuk melindungi orang lain</string>
+        <string name = "label_global">Global</string>
+        <string name = "label_country">Negara</string>
+        <string name = "header_message">Pesan</string>
+        <string name = "message_sukses">Sukses</string>
+        <string name = "message_pending">Menunggu</string>
+        <string name = "message_gagal">Gagal</string>
+        <string name = "button_close">Tutup</string>
+        <string name = "error_noInternet">Tidak ada koneksi internet</string>
+    <string name="label_language">Bahasa</string>
+
+        <array name = "array_covidSysmptoms">
+            <item> Demam </item>
+            <item> Sakit tenggorokan </item>
+            <item> Sakit Kepala </item>
+            <item> Kesulitan bernafas </item>
+        </array>
+
+        <array name = "array_preventCovid">
+            <item> Sering-sering bersihkan tangan Anda. Gunakan sabun dan air, atau usapan berbasis alkohol. </item>
+            <item> Pertahankan jarak aman dari siapa pun yang batuk atau bersin. </item>
+            <item> Tutupi hidung dan mulut Anda dengan siku tertekuk atau tisu saat Anda batuk atau bersin </item>
+            <item> Tetap di rumah jika merasa tidak enak badan. </item>
+            <item> Jika Anda demam, batuk, dan sulit bernapas, dapatkan bantuan medis. Panggil di muka </item>
+            <item> Ikuti arahan otoritas kesehatan setempat Anda. </item>
+        </array>
+</resources>

@@ -1,7 +1,10 @@
 package fadhilah.ramadhan.covid19stats.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +22,10 @@ public class WelcomeScreenActivity extends AppCompatActivity implements AsyncTas
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+
+        SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        String lang = mSettings.getString("lang", "en");
+        Utility.setLocale(lang,getBaseContext(),this);
 
         CallService callService = new CallService(this,this, Constant.SERVICE_NO_LOADING);
         callService.execute("dayone/country/indonesia", Constant.METHOD_GET);

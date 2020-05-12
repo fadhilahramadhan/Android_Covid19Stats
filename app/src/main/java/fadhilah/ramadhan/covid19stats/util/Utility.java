@@ -1,6 +1,13 @@
 package fadhilah.ramadhan.covid19stats.util;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +23,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import fadhilah.ramadhan.covid19stats.Activity.MainActivity;
 import fadhilah.ramadhan.covid19stats.R;
 import fadhilah.ramadhan.covid19stats.component.AlertDialogCustom;
 import fadhilah.ramadhan.covid19stats.model.GlobalVar;
@@ -156,5 +165,20 @@ public class Utility {
             return false;
         }
         return true;
+    }
+
+    public static void setLocale(String lang, Context context, Activity activity) {
+
+        SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putString("lang", lang);
+        editor.apply();
+
+        Locale myLocale = new Locale(lang);
+        Resources res = context.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
     }
 }

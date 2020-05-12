@@ -40,7 +40,7 @@
                 android:layout_height="90dp"
                 app:strokeSize="8dp"
                 app:valueStrokeColor="#ff0000"
-                app:backStrokeColor="@color/colorAccent"
+                app:backStrokeColor="@color/colorLight"
                 app:animationMode="overdraw"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"/>

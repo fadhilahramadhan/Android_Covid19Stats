@@ -67,7 +67,7 @@
                         android:layout_height="150dp"
                         app:strokeSize="13dp"
                         app:valueStrokeColor="#ff0000"
-                        app:backStrokeColor="@color/colorAccent"
+                        app:backStrokeColor="@color/colorLight"
                         app:animationMode="overdraw" />
 
                     <LinearLayout
