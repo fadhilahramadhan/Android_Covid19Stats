@@ -9,6 +9,7 @@ public class GlobalVar {
     private List<DataStats> DataStatsCountry = new ArrayList<>();
     private List<DataStats> DataStatsSummary = new ArrayList<>();
     private DataStats DataStatsGlobal = new DataStats();
+    private int layoutStatisticHeight;
 
     public List<DataStats> getDataStatsCountry() {
         return DataStatsCountry;
@@ -44,5 +45,13 @@ public class GlobalVar {
 
     public void setDataStatsGlobal(DataStats dataStatsGlobal) {
         DataStatsGlobal = dataStatsGlobal;
+    }
+
+    public int getLayoutStatisticHeight() {
+        return layoutStatisticHeight;
+    }
+
+    public void setLayoutStatisticHeight(int layoutStatisticHeight) {
+        this.layoutStatisticHeight = layoutStatisticHeight;
     }
 }

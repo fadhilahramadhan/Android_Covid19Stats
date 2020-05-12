@@ -11,9 +11,12 @@ import org.apache.http.conn.ConnectTimeoutException;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
+import fadhilah.ramadhan.covid19stats.R;
 import fadhilah.ramadhan.covid19stats.component.ProgresDialog;
 import fadhilah.ramadhan.covid19stats.util.Constant;
+import fadhilah.ramadhan.covid19stats.util.Utility;
 
 public class CallService  extends AsyncTask<Object, String, String> {
 	private Context applicationContext;
@@ -62,20 +65,22 @@ public class CallService  extends AsyncTask<Object, String, String> {
 			Response response = client.newCall(request).execute();
 
 			result = response.body().string();
+		}  catch (UnknownHostException e){
+			result = "{\"errorCode\":\"true\", \"fullMessage\":\""+applicationContext.getResources().getString(R.string.error_noInternet)+"\"}";
+			e.printStackTrace();
 		} catch (SocketException e) {
-			result = "{\"errorCode\":\"IB-0000\"}";
+			result = "{\"errorCode\":\"true\", \"fullMessage\":\""+e.getMessage()+"\"}";
 			e.printStackTrace();
 		} catch (SocketTimeoutException e) {
-			result = "{\"errorCode\":\"IB-1015\"}";
+			result = "{\"errorCode\":\"true\", \"fullMessage\":\""+e.getMessage()+"\"}";
 			e.printStackTrace();
 		} catch (ConnectTimeoutException e) {
-			result = "{\"errorCode\":\"IB-1015\"}";
+			result = "{\"errorCode\":\"true\", \"fullMessage\":\""+e.getMessage()+"\"}";
 			e.printStackTrace();
 		} catch (Exception e) {
-			result = "{\"errorCode\":\"IB-0000\"}";
+			result = "{\"errorCode\":\"true\", \"fullMessage\":\""+e.getMessage()+"\"}";
 			e.printStackTrace();
 		}
-
 		return result;
 	}
 
@@ -89,7 +94,6 @@ public class CallService  extends AsyncTask<Object, String, String> {
 				e.printStackTrace();
 			}
 		}
-
 		callback.onTaskComplete(result);
 
 	}

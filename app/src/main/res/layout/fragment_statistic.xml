@@ -1,177 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayoutBasePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="top|center"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/titleTopCountriesText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:theme="@style/TitleTheme"
-            android:layout_marginTop="10dp"
-            android:text="@string/label_topCountries"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/topCountriesSlider"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/titleCovidGlobalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/label_global"
-            android:theme="@style/TitleTheme" />
-
-        <LinearLayout
+     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:gravity="center">
-
-            <com.txusballesteros.widgets.FitChart
-                android:id="@+id/globalDataStats"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                app:strokeSize="13dp"
-                app:valueStrokeColor="#ff0000"
-                app:backStrokeColor="@color/colorAccent"
-                app:animationMode="overdraw" />
-
+            android:layout_margin="20dp">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="30dp">
+                android:id="@+id/layoutTop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/bg_rounded_blue"/>
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
                     <TextView
-                        android:id="@+id/activeCaseText"
+                        android:id="@+id/titleTopCountriesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/TitleTheme"
+                        android:layout_weight="1"
+                        android:text="@string/label_topCountries"/>
+                    <TextView
+                        android:id="@+id/dateText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:theme="@style/NormalTextTheme"
-                        android:textColor="@color/bg_Blue"
-                        android:layout_marginLeft="10dp"
-                        android:layout_gravity="center"/>
+                        android:textColor="@color/black"
+                        android:text="Date"/>
                 </LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/topCountriesSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/titleCovidGlobalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/label_global"
+                    android:theme="@style/TitleTheme" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    android:layout_margin="10dp"
+                    android:gravity="center">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_rounded_green" />
-                <TextView
-                    android:id="@+id/curedText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/NormalTextTheme"
-                    android:textColor="@color/bg_Green"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_rounded_red"/>
-                <TextView
-                    android:id="@+id/deathText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/NormalTextTheme"
-                    android:textColor="@color/bg_Red"
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"/>
+                    <com.txusballesteros.widgets.FitChart
+                        android:id="@+id/globalDataStats"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        app:strokeSize="13dp"
+                        app:valueStrokeColor="#ff0000"
+                        app:backStrokeColor="@color/colorAccent"
+                        app:animationMode="overdraw" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="30dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp">
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_rounded_blue"/>
+                            <TextView
+                                android:id="@+id/activeCaseText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/NormalTextTheme"
+                                android:textColor="@color/bg_Blue"
+                                android:layout_marginLeft="10dp"
+                                android:layout_gravity="center"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="10dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_rounded_green" />
+                            <TextView
+                                android:id="@+id/curedText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/NormalTextTheme"
+                                android:textColor="@color/bg_Green"
+                                android:layout_marginLeft="10dp"
+                                android:layout_gravity="center"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_rounded_red"/>
+                            <TextView
+                                android:id="@+id/deathText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/NormalTextTheme"
+                                android:textColor="@color/bg_Red"
+                                android:layout_marginLeft="10dp"
+                                android:layout_gravity="center"/>
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/titleStatisticText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:theme="@style/TitleTheme"
-            android:text="@string/title_statistic"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"/>
-        <LinearLayout
-            android:id="@+id/layoutHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/titleCountryText"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/NormalTextTheme"
-                    android:text="@string/label_country"
-                    android:layout_width="120dp"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:id="@+id/titlePositiveText"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/NormalTextTheme"
-                    android:text="@string/label_positive"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
-                <TextView
-                    android:id="@+id/titleDeathText"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/NormalTextTheme"
-                    android:text="@string/label_death"
-                    android:textColor="@color/bg_Red"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
-                <TextView
-                    android:id="@+id/titleRecoveredText"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/NormalTextTheme"
-                    android:textColor="@color/bg_Green"
-                    android:text="@string/label_recovered"
-                    android:layout_weight="1"
-                    android:gravity="center"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.7dp"
-                android:layout_marginTop="5dp"
-                android:background="@android:color/darker_gray"/>
-        </LinearLayout>
-        <ListView
-            android:id="@+id/statisticList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+    <include
+        android:id="@+id/layoutStatisticGlobal"
+        layout="@layout/layout_statistic_global" />
 
-
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

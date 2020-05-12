@@ -14,6 +14,7 @@ public class BaseGlobalVar extends Fragment {
 
     public List<DataStats> dataStatsCountry,dataStatsSummary;
     public DataStats dataStatsGlobal;
+    public int layoutStatisticHeight =0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class BaseGlobalVar extends Fragment {
         dataStatsCountry = GlobalVar.getInstance().getDataStatsCountry();
         dataStatsSummary = GlobalVar.getInstance().getDataStatsSummary();
         dataStatsGlobal   = GlobalVar.getInstance().getDataStatsGlobal();
+        layoutStatisticHeight = GlobalVar.getInstance().getLayoutStatisticHeight();
     }
 
 

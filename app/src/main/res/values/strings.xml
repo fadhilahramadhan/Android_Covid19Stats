@@ -15,6 +15,12 @@
     <string name="label_preventCovid">Take steps to protect others</string>
     <string name="label_global">Global</string>
     <string name="label_country">Country</string>
+    <string name="header_message">Message</string>
+    <string name="message_sukses">Success</string>
+    <string name="message_pending">Pending</string>
+    <string name="message_gagal">Failed</string>
+    <string name="button_close">Close</string>
+    <string name="error_noInternet">No internet connection</string>
 
     <array name="array_covidSysmptoms">
         <item>Fever</item>

@@ -21,15 +21,17 @@ public class WelcomeScreenActivity extends AppCompatActivity implements AsyncTas
         setContentView(R.layout.activity_welcome_screen);
 
         CallService callService = new CallService(this,this, Constant.SERVICE_NO_LOADING);
-        callService.execute("live/country/indonesia", Constant.METHOD_GET);
+        callService.execute("dayone/country/indonesia", Constant.METHOD_GET);
     }
 
     @Override
     public void onTaskComplete(Object[] params) {
         String result = (String) params[0];
-        GlobalVar.getInstance().setDataStatsCountry(Utility.buildDataStats(result));
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        if(Utility.cekValidResult(result, this)){
+            GlobalVar.getInstance().setDataStatsCountry(Utility.buildDataStats(result));
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

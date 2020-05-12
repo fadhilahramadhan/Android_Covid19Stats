@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +43,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
     private FitChart homeDataStats;
     private CardSliderViewPager preventCovidSlider;
     private GridView symptomsGrid;
+    private ScrollView scrollView;
     private DecimalFormat formatter = new DecimalFormat("#,###,###");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -58,6 +61,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
         homeDataStats       = v.findViewById(R.id.homeDataStats);
         dateStatsText       = v.findViewById(R.id.dateStatsText);
         moreDetail          = v.findViewById(R.id.moreDetail);
+        scrollView          = v.findViewById(R.id.scroll);
 
         dataStats = dataStatsCountry.get(dataStatsCountry.size() - 1);
 
@@ -68,7 +72,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
         deathText.setText(getString(R.string.label_death) +"\n"+formatter.format(dataStats.getDeath()));
         dateStatsText.setText(Utility.dateFormat(Constant.SIMPLE_DATE, dataStats.getDate()));
 
-        buildStats((float) dataStats.getActiveCases() + dataStats.getCured() + dataStats.getDeath());
+        buildStats((float) dataStats.getPostive() + dataStats.getCured() + dataStats.getDeath());
 
         symptomsGrid = v.findViewById(R.id.symptomsGrid);
         SysmptomsAdapter customAdapter = new SysmptomsAdapter(getContext(), getResources().getStringArray(R.array.array_covidSysmptoms));
@@ -79,6 +83,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
 
         moreDetail.setOnClickListener(this);
 
+        scrollView.smoothScrollTo(0,0);
         setFont();
         return v;
     }
@@ -90,6 +95,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
         activeCaseText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
         curesText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
         deathText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
+        dateStatsText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
     }
 
     public void buildStats(Float maxValue){
@@ -107,11 +113,10 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.moreDetail){
-           /* Intent intent = new Intent(getActivity(), DetailsStatisticActivity.class);
-            intent.putExtra("dataStats",(ArrayList) dataStatsCountry);
-            getActivity().startActivity(intent);*/
-            Toast toast = Toast.makeText(getContext(),"Under develop",Toast.LENGTH_SHORT);
-            toast.show();
+            Intent intent = new Intent(getActivity(), DetailsStatisticActivity.class);
+            intent.putParcelableArrayListExtra("dataStats", (ArrayList<? extends DataStats>) dataStatsCountry);
+            intent.putExtra("country", dataStats.getCountry());
+            startActivityForResult(intent,1);
         }
     }
 }

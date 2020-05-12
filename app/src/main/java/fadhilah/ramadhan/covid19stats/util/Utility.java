@@ -1,5 +1,6 @@
 package fadhilah.ramadhan.covid19stats.util;
 
+import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import fadhilah.ramadhan.covid19stats.R;
+import fadhilah.ramadhan.covid19stats.component.AlertDialogCustom;
 import fadhilah.ramadhan.covid19stats.model.GlobalVar;
 import fadhilah.ramadhan.covid19stats.model.DataStats;
 
@@ -116,5 +119,42 @@ public class Utility {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    public static boolean StringContainAnywhere(String param, String search){
+        return param.toLowerCase().matches("(?i).*"+ search.toLowerCase() +".*");
+    }
+
+    public static boolean  cekValidResult(String result, Activity activity){
+
+        try{
+            if(!result.contains("errorCode")){
+                return true;
+            }else{
+                JSONObject jsonObject = new JSONObject(result);
+                if(jsonObject.has("errorCode")){
+                    String errorCode = jsonObject.getString("errorCode");
+                    String message = jsonObject.getString("fullMessage");
+
+                        AlertDialogCustom dialogs = new AlertDialogCustom(activity);
+                        dialogs.setTitleandContent(activity.getString(R.string.header_message), message, activity.getString(R.string.button_close));
+
+                    return false;
+                }else{
+                }
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+            AlertDialogCustom dialogs = new AlertDialogCustom(activity);
+            dialogs.setTitleandContent(activity.getString(R.string.header_message), activity.getString(R.string.message_gagal), activity.getString(R.string.button_close));
+            return false;
+        }catch (Exception e) {
+            e.printStackTrace();
+            AlertDialogCustom dialogs = new AlertDialogCustom(activity);
+            dialogs.setTitleandContent(activity.getString(R.string.header_message), activity.getString(R.string.message_gagal), activity.getString(R.string.button_close));
+
+            return false;
+        }
+        return true;
     }
 }

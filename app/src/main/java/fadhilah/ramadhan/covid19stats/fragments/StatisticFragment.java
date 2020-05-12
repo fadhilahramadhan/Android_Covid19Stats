@@ -1,20 +1,26 @@
 package fadhilah.ramadhan.covid19stats.fragments;
 
-import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.txusballesteros.widgets.FitChart;
 import com.txusballesteros.widgets.FitChartValue;
 
@@ -25,11 +31,14 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
+import fadhilah.ramadhan.covid19stats.Activity.DetailsStatisticActivity;
 import fadhilah.ramadhan.covid19stats.R;
 import fadhilah.ramadhan.covid19stats.adapter.StatisticListAdapter;
 import fadhilah.ramadhan.covid19stats.adapter.TopCountriesAdapter;
 import fadhilah.ramadhan.covid19stats.base.BaseGlobalVar;
+import fadhilah.ramadhan.covid19stats.component.ProgresDialog;
 import fadhilah.ramadhan.covid19stats.model.GlobalVar;
 import fadhilah.ramadhan.covid19stats.model.DataStats;
 import fadhilah.ramadhan.covid19stats.util.Constant;
@@ -38,12 +47,17 @@ import fadhilah.ramadhan.covid19stats.util.Utility;
 import fadhilah.ramadhan.covid19stats.util.service.AsyncTaskCompleteListener;
 import fadhilah.ramadhan.covid19stats.util.service.CallService;
 
-public class StatisticFragment extends BaseGlobalVar implements AsyncTaskCompleteListener {
-    private TextView titleTopCountriesText, titleCovidGlobalText, titleStatisticText, activeCaseText, curesText, deathText;
+public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskCompleteListener, AdapterView.OnItemClickListener  {
+    private TextView titleTopCountriesText, titleCovidGlobalText, titleStatisticText, activeCaseText, curesText, deathText, dateText;
     private RecyclerView topCountriesSlider;
     private FitChart globalDataStats;
-    private DecimalFormat formatter = new DecimalFormat("#,###,###");
     private ListView statisticList;
+    private int requestTask;
+    private EditText search;
+    private StatisticListAdapter adapter;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private LinearLayout layoutTop;
+    private String result;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,24 +73,47 @@ public class StatisticFragment extends BaseGlobalVar implements AsyncTaskComplet
         deathText               = v.findViewById(R.id.deathText);
         globalDataStats         = v.findViewById(R.id.globalDataStats);
         statisticList           = v.findViewById(R.id.statisticList);
+        dateText                = v.findViewById(R.id.dateText);
+        search                  = v.findViewById(R.id.search);
+        layoutTop               = v.findViewById(R.id.layoutTop);
+
+        RelativeLayout bottomSheetLayout
+                = (RelativeLayout) v.findViewById(R.id.layoutStatisticGlobal);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(topCountriesSlider.getContext(), LinearLayoutManager.HORIZONTAL, false);
         topCountriesSlider.setLayoutManager(horizontalLayoutManager);
 
         if(GlobalVar.getInstance().getDataStatsSummary().size() != 0){
-            topCountriesSlider.setAdapter(new TopCountriesAdapter(getActivity().getBaseContext(), (ArrayList<DataStats>)  getTop5(GlobalVar.getInstance().getDataStatsSummary())));
-            buildStats(dataStatsGlobal);
-
-            activeCaseText.setText(getString(R.string.label_activeCase) +"\n"+ formatter.format(dataStatsGlobal.getPostive()));
-            curesText.setText(getString(R.string.label_cured) +"\n"+ formatter.format(dataStatsGlobal.getCured()));
-            deathText.setText(getString(R.string.label_death) +"\n"+formatter.format(dataStatsGlobal.getDeath()));
-
-            statisticList.setAdapter(new StatisticListAdapter(getContext(), dataStatsSummary));
+            LoadingStatisticFragment loading = new LoadingStatisticFragment();
+            loading.execute(null, dataStatsGlobal, dataStatsSummary);
+            bottomSheetBehavior.setPeekHeight(layoutStatisticHeight);
         }else{
+            requestTask = 1;
             CallService callService = new CallService(getContext(),this);
             callService.execute("summary", Constant.METHOD_GET);
         }
+        statisticList.setTextFilterEnabled(true);
 
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        statisticList.setOnItemClickListener(this);
+        Utility.setListViewHeight(statisticList);
         setFont(v);
         return v;
     }
@@ -99,8 +136,21 @@ public class StatisticFragment extends BaseGlobalVar implements AsyncTaskComplet
         activeCaseText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
         curesText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
         deathText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
+        dateText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
+
     }
 
+    public void buildStats( DataStats dataStats){
+        float maxValue = (float) dataStats.getPostive() + dataStats.getCured() + dataStats.getDeath();
+        globalDataStats.setMaxValue(maxValue);
+        globalDataStats.setMinValue(0f);
+
+        Collection<FitChartValue> values = new ArrayList<>();
+        values.add(new FitChartValue((float)dataStats.getPostive(), getContext().getResources().getColor(R.color.bg_Blue)));
+        values.add(new FitChartValue((float)dataStats.getCured(), getContext().getResources().getColor(R.color.bg_Green)));
+        values.add(new FitChartValue((float)dataStats.getDeath(), getContext().getResources().getColor(R.color.bg_Red)));
+        globalDataStats.setValues(values);
+    }
 
     public List<DataStats> getTop5(List<DataStats> dataStats){
 
@@ -153,50 +203,115 @@ public class StatisticFragment extends BaseGlobalVar implements AsyncTaskComplet
         return top5;
     }
 
-    public void buildStats( DataStats dataStats){
-        float maxValue = (float) dataStats.getPostive() + dataStats.getCured() + dataStats.getDeath();
-        globalDataStats.setMaxValue(maxValue);
-        globalDataStats.setMinValue(0f);
-
-        Collection<FitChartValue> values = new ArrayList<>();
-        values.add(new FitChartValue((float)dataStats.getPostive(), getResources().getColor(R.color.bg_Blue)));
-        values.add(new FitChartValue((float)dataStats.getCured(), getResources().getColor(R.color.bg_Green)));
-        values.add(new FitChartValue((float)dataStats.getDeath(), getResources().getColor(R.color.bg_Red)));
-        globalDataStats.setValues(values);
-        System.out.println("Masuk :"+maxValue);
-    }
-    
     @Override
     public void onTaskComplete(Object[] params) {
-        String result = (String)params[0];
-        try {
-            JSONObject jsonObject = new JSONObject(result);
 
-            String jsonCountries = jsonObject.getString("Countries");
-            List<DataStats> dataStatsCountries = Utility.buildDataSummary(jsonCountries);
+           result = (String) params[0];
+            if(Utility.cekValidResult(result, getActivity())){
+                if(requestTask == 1){
+                    requestTask = 3;
+                    LoadingStatisticFragment loading = new LoadingStatisticFragment();
+                    loading.execute(result);
+                }else if(requestTask == 2){
+                    List<DataStats> dataStats = Utility.buildDataStats(result);
+                    Intent intent = new Intent(getActivity(), DetailsStatisticActivity.class);
+                    intent.putParcelableArrayListExtra("dataStats", (ArrayList<? extends DataStats>) dataStats);
+                    intent.putExtra("country", dataStats.get(0).getCountry());
+                    startActivityForResult(intent,1);
+                }
+            }
 
-            String jsonGlobal = jsonObject.getString("Global");
-            DataStats dataStatsGlobal =  Utility.buildDataGlobal(jsonGlobal);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            DataStats dataStats = new DataStats();
+            dataStats = (DataStats) statisticList.getItemAtPosition(position);
+
+            requestTask = 2;
+            CallService callService = new CallService(getContext(),this);
+            callService.execute("dayone/country/"+dataStats.getCountry(), Constant.METHOD_GET);
+    }
+
+    public class LoadingStatisticFragment  extends AsyncTask<Object, List<DataStats>, List<DataStats>> {
+
+        private ProgresDialog loading;
+        private boolean withLoading = true;
+
+        private List<DataStats> dataStatsCountries;
+        private DataStats dataStatsGlobal;
+        private DecimalFormat formatter = new DecimalFormat("#,###,###");
+
+
+        @Override
+        protected void onPreExecute() {
+            if(withLoading){
+                loading = new ProgresDialog(getContext());
+                loading.show();
+            }
+        }
+
+        @Override
+        protected List<DataStats> doInBackground(Object... params) {
+
+            String result = (String) params[0];
+            if(result != null){
+                try{
+                    JSONObject jsonObject = new JSONObject(result);
+                    String jsonCountries = jsonObject.getString("Countries");
+                    dataStatsCountries = Utility.buildDataSummary(jsonCountries);
+
+                    String jsonGlobal = jsonObject.getString("Global");
+                    dataStatsGlobal =  Utility.buildDataGlobal(jsonGlobal);
+                }catch (JSONException e){
+                    Log.e("JSONException ee", e.getMessage());
+                }
+            }else{
+                dataStatsGlobal     = (DataStats) params[1];
+                dataStatsCountries  = (List<DataStats>) params[2];
+            }
+
 
             GlobalVar.getInstance().setDataStatsSummary(dataStatsCountries);
             GlobalVar.getInstance().setDataStatsGlobal(dataStatsGlobal);
 
-            statisticList.setAdapter(new StatisticListAdapter(getContext(), dataStatsCountries));
 
-            dataStatsCountries =  getTop5(dataStatsCountries);
-            buildStats(dataStatsGlobal);
 
-            activeCaseText.setText(getString(R.string.label_activeCase) +"\n"+ formatter.format(dataStatsGlobal.getPostive()));
-            curesText.setText(getString(R.string.label_cured) +"\n"+ formatter.format(dataStatsGlobal.getCured()));
-            deathText.setText(getString(R.string.label_death) +"\n"+formatter.format(dataStatsGlobal.getDeath()));
-
-            topCountriesSlider.setAdapter(new TopCountriesAdapter(getActivity().getBaseContext(), (ArrayList<DataStats>) dataStatsCountries));
-            ;
-
-        }catch (JSONException e){
-            Log.e("JSONException ee", e.getMessage());
+            return dataStatsCountries;
         }
 
+
+        @Override
+        protected void onPostExecute(List<DataStats> result) {
+
+            activeCaseText.setText( getContext().getString(R.string.label_activeCase) +"\n"+ formatter.format(dataStatsGlobal.getPostive()));
+            curesText.setText( getContext().getString(R.string.label_cured) +"\n"+ formatter.format(dataStatsGlobal.getCured()));
+            deathText.setText( getContext().getString(R.string.label_death) +"\n"+formatter.format(dataStatsGlobal.getDeath()));
+
+            buildStats(dataStatsGlobal);
+            dateText.setText(Utility.dateFormat(Constant.SIMPLE_DATE, dataStatsCountries.get(0).getDate()));
+
+            adapter = new StatisticListAdapter(getContext(), result);
+            adapter.notifyDataSetChanged();
+            result = getTop5(result);
+            statisticList.setAdapter(adapter);
+            topCountriesSlider.setAdapter(new TopCountriesAdapter(getContext(), (ArrayList<DataStats>) result));
+            int height = layoutTop.getHeight() - 25;
+            GlobalVar.getInstance().setLayoutStatisticHeight(height);
+            bottomSheetBehavior.setPeekHeight(height);
+            Utility.setListViewHeight(statisticList);
+
+            try {
+                loading.dismiss();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
     }
+
+
 }
 
