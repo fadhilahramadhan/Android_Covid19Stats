@@ -2,6 +2,7 @@ package fadhilah.ramadhan.covid19stats.fragments;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -58,6 +61,7 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
     private BottomSheetBehavior bottomSheetBehavior;
     private LinearLayout layoutTop;
     private String result;
+    private ProgresDialog loading;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -114,6 +118,7 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
 
         statisticList.setOnItemClickListener(this);
         Utility.setListViewHeight(statisticList);
+
         setFont(v);
         return v;
     }
@@ -209,9 +214,14 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
            result = (String) params[0];
             if(Utility.cekValidResult(result, getActivity())){
                 if(requestTask == 1){
-                    requestTask = 3;
-                    LoadingStatisticFragment loading = new LoadingStatisticFragment();
-                    loading.execute(result);
+                    if(result == null){
+                        requestTask = 1;
+                        CallService callService = new CallService(getContext(),this);
+                        callService.execute("summary", Constant.METHOD_GET);
+                    }else{
+                        LoadingStatisticFragment loading = new LoadingStatisticFragment();
+                        loading.execute(result);
+                    }
                 }else if(requestTask == 2){
                     List<DataStats> dataStats = Utility.buildDataStats(result);
                     Intent intent = new Intent(getActivity(), DetailsStatisticActivity.class);
@@ -264,7 +274,7 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
                     String jsonGlobal = jsonObject.getString("Global");
                     dataStatsGlobal =  Utility.buildDataGlobal(jsonGlobal);
                 }catch (JSONException e){
-                    Log.e("JSONException ee", e.getMessage());
+                    Log.e("JSONException", e.getMessage());
                 }
             }else{
                 dataStatsGlobal     = (DataStats) params[1];
@@ -288,14 +298,15 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
             curesText.setText( getContext().getString(R.string.label_cured) +"\n"+ formatter.format(dataStatsGlobal.getCured()));
             deathText.setText( getContext().getString(R.string.label_death) +"\n"+formatter.format(dataStatsGlobal.getDeath()));
 
+            adapter = new StatisticListAdapter(getContext(), result);
+            statisticList.setAdapter(adapter);
+
             buildStats(dataStatsGlobal);
             dateText.setText(Utility.dateFormat(Constant.SIMPLE_DATE, dataStatsCountries.get(0).getDate()));
 
-            adapter = new StatisticListAdapter(getContext(), result);
-            adapter.notifyDataSetChanged();
             result = getTop5(result);
-            statisticList.setAdapter(adapter);
             topCountriesSlider.setAdapter(new TopCountriesAdapter(getContext(), (ArrayList<DataStats>) result));
+
             int height = layoutTop.getHeight() - 25;
             GlobalVar.getInstance().setLayoutStatisticHeight(height);
             bottomSheetBehavior.setPeekHeight(height);
