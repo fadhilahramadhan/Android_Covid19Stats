@@ -1,11 +1,14 @@
 package fadhilah.ramadhan.covid19stats.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -15,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.islamkhsh.CardSliderAdapter;
@@ -29,6 +34,7 @@ import java.util.List;
 
 import fadhilah.ramadhan.covid19stats.Activity.ChangeLanguageActivity;
 import fadhilah.ramadhan.covid19stats.Activity.DetailsStatisticActivity;
+import fadhilah.ramadhan.covid19stats.Activity.MainActivity;
 import fadhilah.ramadhan.covid19stats.R;
 import fadhilah.ramadhan.covid19stats.adapter.PreventCovidAdapter;
 import fadhilah.ramadhan.covid19stats.adapter.SysmptomsAdapter;
@@ -39,7 +45,7 @@ import fadhilah.ramadhan.covid19stats.util.FontUtils;
 import fadhilah.ramadhan.covid19stats.util.Utility;
 
 public class HomeFragment extends BaseGlobalVar implements View.OnClickListener {
-    private TextView titleStatText,titleSymptoms, titlePreventCovid, activeCaseText, curesText, deathText, dateStatsText,moreDetail;
+    private TextView titleStatText,titleSymptoms, titlePreventCovid, activeCaseText, curesText, deathText, dateStatsText,moreDetail, modeChangeText;
     private DataStats dataStats;
     private FitChart homeDataStats;
     private CardSliderViewPager preventCovidSlider;
@@ -47,6 +53,9 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
     private ScrollView scrollView;
     private DecimalFormat formatter = new DecimalFormat("#,###,###");
     private ImageView changeLanguage;
+    private SwitchCompat modeChange;
+    private SharedPreferences.Editor editor;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +73,17 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
         moreDetail          = v.findViewById(R.id.moreDetail);
         scrollView          = v.findViewById(R.id.scroll);
         changeLanguage      = v.findViewById(R.id.changeLanguage);
+        modeChange          = v.findViewById(R.id.modeChange);
+        modeChangeText      = v.findViewById(R.id.modeChangeText);
+
+        SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        editor = mSettings.edit();
+        boolean darkMode = mSettings.getBoolean("darkMode", false);
+
+        if(darkMode){
+            modeChange.setChecked(true);
+
+        }
 
         dataStats = dataStatsCountry.get(dataStatsCountry.size() - 1);
 
@@ -85,6 +105,21 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
 
         moreDetail.setOnClickListener(this);
         changeLanguage.setOnClickListener(this);
+        modeChange.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    editor.putBoolean("darkMode", true);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }else{
+                    editor.putBoolean("darkMode", false);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                editor.apply();
+                getActivity().finish();
+                startActivity(getActivity().getIntent());
+            }
+        });
 
         scrollView.smoothScrollTo(0,0);
         setFont();
@@ -99,6 +134,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
         curesText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
         deathText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
         dateStatsText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
+        modeChangeText.setTypeface(FontUtils.loadFontFromAssets(getContext(), Constant.FONT_NORMAL));
     }
 
     public void buildStats(Float maxValue){
@@ -122,6 +158,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
             startActivityForResult(intent,1);
         }else if(v.getId() == R.id.changeLanguage){
             Intent intent = new Intent(getActivity(), ChangeLanguageActivity.class);
+            getActivity().finish();
             startActivity(intent);
         }
     }

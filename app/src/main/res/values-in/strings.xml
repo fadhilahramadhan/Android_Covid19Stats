@@ -23,6 +23,8 @@
         <string name = "button_close">Tutup</string>
         <string name = "error_noInternet">Tidak ada koneksi internet</string>
     <string name="label_language">Bahasa</string>
+    <string name="label_darkMode">Mode Gelap</string>
+    <string name="label_lighMode">Mode Terang</string>
 
         <array name = "array_covidSysmptoms">
             <item> Demam </item>

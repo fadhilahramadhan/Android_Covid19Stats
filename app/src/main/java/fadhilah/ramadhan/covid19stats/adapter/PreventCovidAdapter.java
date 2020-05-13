@@ -34,7 +34,7 @@ public class PreventCovidAdapter extends CardSliderAdapter<PreventCovidAdapter.P
 
         imageView   = view.findViewById(R.id.image);
         title       = view.findViewById(R.id.title);
-        title.setTypeface(FontUtils.loadFontFromAssets(context, Constant.FONT_NORMAL));
+        title.setTypeface(FontUtils.loadFontFromAssets(context, Constant.FONT_BOLD));
 
         return new PrevetCovidViewHolder(view);
     }

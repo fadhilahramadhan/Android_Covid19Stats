@@ -40,7 +40,7 @@ public class SysmptomsAdapter extends BaseAdapter {
 
         ImageView imageView  = (ImageView) view.findViewById(R.id.image);
         TextView title  = (TextView) view.findViewById(R.id.title);
-        title.setTypeface(FontUtils.loadFontFromAssets(context, Constant.FONT_NORMAL));
+        title.setTypeface(FontUtils.loadFontFromAssets(context, Constant.FONT_BOLD));
 
         title.setText(list[i]);
 

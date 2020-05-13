@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@color/bg_Blue"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingTop="20dp"
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:theme="@style/NormalTextTheme"
-                android:textColor="@color/white"
+                android:textColor="@color/colorTextOnLayout"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:theme="@style/NormalTextTheme"
             android:ellipsize="end"
+            android:textColor="@color/bg_Blue"
             android:maxLines="1"
             android:layout_weight="1"/>
         <TextView
@@ -25,6 +26,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:layout_weight="1"
+            android:textColor="@color/bg_Blue"
             android:gravity="center"/>
         <TextView
             android:id="@+id/deathText"

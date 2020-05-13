@@ -18,11 +18,11 @@
     <style name="TitleTheme" parent="TextTheme">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorText</item>
     </style>
 
     <style name="NormalTextTheme" parent="TextTheme">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorText</item>
     </style>
 
     <style name="TextTheme">

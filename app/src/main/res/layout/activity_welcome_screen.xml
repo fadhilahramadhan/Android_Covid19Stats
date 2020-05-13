@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/mode">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/NormalTextTheme"
         android:text="@string/label_pleaseWait"
-        android:textColor="@color/colorDark"
+        android:textColor="@color/colorTextDark"
         android:layout_marginLeft="10dp"/>
 </LinearLayout>
 
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:theme="@style/NormalTextTheme"
             android:text="@string/error_noInternet"
-            android:textColor="@color/colorDark"
+            android:textColor="@color/colorTextDark"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
 

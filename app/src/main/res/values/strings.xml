@@ -22,6 +22,8 @@
     <string name="button_close">Close</string>
     <string name="error_noInternet">No internet connection</string>
     <string name="label_language">Language</string>
+    <string name="label_darkMode">Dark mode</string>
+    <string name="label_lighMode">Ligh mode</string>
 
     <array name="array_covidSysmptoms">
         <item>Fever</item>

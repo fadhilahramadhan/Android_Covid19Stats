@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#7790c5</color>
-    <color name="colorPrimaryDark">#ffff</color>
+    <color name="colorPrimaryDark">#fff</color>
     <color name="colorAccent">#7790c5</color>
-    <color name="colorLight">#f1f5ff</color>
 
+    <color name="colorText">#7790c5</color>
+    <color name="colorTextDark">#4d6ab0</color>
+    <color name="colorTextOnLayout">#FFFFFF</color>
+
+    <color name="colorLight">#FFFFFF</color>
     <color name="colorDark">#4d6ab0</color>
+
     <color name="bg_Blue">#7790c5</color>
     <color name="bg_Green">#67cfa5</color>
     <color name="bg_Red">#ed605e</color>
 
+    <color name="mode">#ffff</color>
+    <color name="modeText">#000000</color>
+
     <color name="white">#ffff</color>
     <color name="black">#000000</color>
+
+    <color name="devider">#A2A2A2</color>
+
     <color name="blue_sky">#c4cfe6</color>
+
+    <drawable name="forward">@drawable/ic_arrow_forward</drawable>
+    <drawable name="language">@drawable/ic_language_black_24dp</drawable>
+    <drawable name="back">@drawable/ic_arrow_back</drawable>
+    <drawable name="search">@drawable/ic_search</drawable>
+    <drawable name="check">@drawable/ic_check</drawable>
 </resources>

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +44,11 @@ public class WelcomeScreenActivity extends AppCompatActivity implements AsyncTas
         SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(this);
         String lang = mSettings.getString("lang", "en");
         Utility.setLocale(lang,getBaseContext(),this);
+
+        boolean darkMode = mSettings.getBoolean("darkMode", false);
+        if(darkMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
 
         CallService callService = new CallService(this,this, Constant.SERVICE_NO_LOADING);
         callService.execute("dayone/country/indonesia", Constant.METHOD_GET);

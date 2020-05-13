@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#121212</color>
+    <color name="colorAccent">#E4E4E4</color>
+
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorTextDark">#FFFFFF</color>
+    <color name="colorTextOnLayout">#2E2929</color>
+
+    <color name="colorLight">#383838</color>
+    <color name="colorDark">#121212</color>
+
+    <color name="bg_Blue">#A1B7E9</color>
+    <color name="bg_Green">#9CE6C4</color>
+    <color name="bg_Red">#FFA3A2</color>
+
+    <color name="mode">#121212</color>
+    <color name="modeText">#FFFFFF</color>
+
+    <color name="white">#ffff</color>
+    <color name="black">#000000</color>
+
+    <color name="devider">#FFFFFF</color>
+
+    <color name="blue_sky">#c4cfe6</color>
+
+    <drawable name="forward">@drawable/ic_arrow_forward_white</drawable>
+    <drawable name="language">@drawable/ic_language_white</drawable>
+    <drawable name="back">@drawable/ic_arrow_back_white</drawable>
+    <drawable name="search">@drawable/ic_search_white</drawable>
+    <drawable name="check">@drawable/ic_check_white</drawable>
+</resources>

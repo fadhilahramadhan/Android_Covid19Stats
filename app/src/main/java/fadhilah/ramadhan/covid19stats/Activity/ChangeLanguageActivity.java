@@ -59,12 +59,22 @@ public class ChangeLanguageActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.back){
+            Intent refresh = new Intent(this, MainActivity.class);
+            startActivity(refresh);
             finish();
         }else if(v.getId() == R.id.layoutIndonesia){
             changeLanguage(Constant.INDONESIA);
         }else if(v.getId() == R.id.layoutEnglish){
             changeLanguage(Constant.ENGLISH);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent refresh = new Intent(this, MainActivity.class);
+        startActivity(refresh);
+        finish();
     }
 
     public void changeLanguage(String language){
@@ -78,6 +88,6 @@ public class ChangeLanguageActivity extends AppCompatActivity implements View.On
         Utility.setLocale(language, getBaseContext(), this);
         Intent refresh = new Intent(this, MainActivity.class);
         finish();
-       startActivity(refresh);
+        startActivity(refresh);
     }
 }

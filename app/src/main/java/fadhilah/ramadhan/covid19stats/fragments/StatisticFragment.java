@@ -214,7 +214,7 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
            result = (String) params[0];
             if(Utility.cekValidResult(result, getActivity())){
                 if(requestTask == 1){
-                    if(result == null){
+                    if(result.equals("You have reached maximum request limit.")){
                         requestTask = 1;
                         CallService callService = new CallService(getContext(),this);
                         callService.execute("summary", Constant.METHOD_GET);
@@ -285,7 +285,7 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
             GlobalVar.getInstance().setDataStatsSummary(dataStatsCountries);
             GlobalVar.getInstance().setDataStatsGlobal(dataStatsGlobal);
 
-
+            adapter = new StatisticListAdapter(getContext(), dataStatsCountries);
 
             return dataStatsCountries;
         }
@@ -294,11 +294,10 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
         @Override
         protected void onPostExecute(List<DataStats> result) {
 
-            activeCaseText.setText( getContext().getString(R.string.label_activeCase) +"\n"+ formatter.format(dataStatsGlobal.getPostive()));
+            activeCaseText.setText( getContext().getString(R.string.label_positive) +"\n"+ formatter.format(dataStatsGlobal.getPostive()));
             curesText.setText( getContext().getString(R.string.label_cured) +"\n"+ formatter.format(dataStatsGlobal.getCured()));
             deathText.setText( getContext().getString(R.string.label_death) +"\n"+formatter.format(dataStatsGlobal.getDeath()));
 
-            adapter = new StatisticListAdapter(getContext(), result);
             statisticList.setAdapter(adapter);
 
             buildStats(dataStatsGlobal);

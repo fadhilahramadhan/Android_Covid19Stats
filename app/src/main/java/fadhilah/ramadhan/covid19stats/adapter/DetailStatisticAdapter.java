@@ -160,7 +160,7 @@ public class DetailStatisticAdapter extends BaseAdapter {
         detailDataStats.setMinValue(0f);
 
         Collection<FitChartValue> values = new ArrayList<>();
-        values.add(new FitChartValue((float)getItem(position).getPostive(), context.getResources().getColor(R.color.colorDark)));
+        values.add(new FitChartValue((float)getItem(position).getPostive(), context.getResources().getColor(R.color.colorTextDark)));
         values.add(new FitChartValue((float)getItem(position).getActiveCases(), context.getResources().getColor(R.color.bg_Blue)));
         values.add(new FitChartValue((float)getItem(position).getCured(), context.getResources().getColor(R.color.bg_Green)));
         values.add(new FitChartValue((float)getItem(position).getDeath(), context.getResources().getColor(R.color.bg_Red)));
