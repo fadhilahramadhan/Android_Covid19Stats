@@ -116,9 +116,8 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
             }
         });
 
-        statisticList.setOnItemClickListener(this);
-        Utility.setListViewHeight(statisticList);
 
+        statisticList.setOnItemClickListener(this);
         setFont(v);
         return v;
     }
@@ -245,7 +244,6 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
 
     public class LoadingStatisticFragment  extends AsyncTask<Object, List<DataStats>, List<DataStats>> {
 
-        private ProgresDialog loading;
         private boolean withLoading = true;
 
         private List<DataStats> dataStatsCountries;
@@ -285,7 +283,6 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
             GlobalVar.getInstance().setDataStatsSummary(dataStatsCountries);
             GlobalVar.getInstance().setDataStatsGlobal(dataStatsGlobal);
 
-            adapter = new StatisticListAdapter(getContext(), dataStatsCountries);
 
             return dataStatsCountries;
         }
@@ -298,28 +295,28 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
             curesText.setText( getContext().getString(R.string.label_cured) +"\n"+ formatter.format(dataStatsGlobal.getCured()));
             deathText.setText( getContext().getString(R.string.label_death) +"\n"+formatter.format(dataStatsGlobal.getDeath()));
 
-            statisticList.setAdapter(adapter);
+            loadList(result);
 
-            buildStats(dataStatsGlobal);
             dateText.setText(Utility.dateFormat(Constant.SIMPLE_DATE, dataStatsCountries.get(0).getDate()));
-
+            buildStats(dataStatsGlobal);
             result = getTop5(result);
             topCountriesSlider.setAdapter(new TopCountriesAdapter(getContext(), (ArrayList<DataStats>) result));
 
             int height = layoutTop.getHeight() - 25;
             GlobalVar.getInstance().setLayoutStatisticHeight(height);
             bottomSheetBehavior.setPeekHeight(height);
-            Utility.setListViewHeight(statisticList);
 
-            try {
-                loading.dismiss();
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
         }
 
 
 
+    }
+
+
+    public void loadList(List<DataStats> dataStatsCountries){
+        adapter = new StatisticListAdapter(getContext(), dataStatsCountries);
+        statisticList.setAdapter(adapter);
+        adapter.loadMore(loading);
     }
 
 

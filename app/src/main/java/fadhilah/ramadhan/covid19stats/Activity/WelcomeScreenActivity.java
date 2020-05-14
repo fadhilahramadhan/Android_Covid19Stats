@@ -58,10 +58,16 @@ public class WelcomeScreenActivity extends AppCompatActivity implements AsyncTas
     public void onTaskComplete(Object[] params) {
         String result = (String) params[0];
         if(Utility.cekValidResult(result, this)){
-            GlobalVar.getInstance().setDataStatsCountry(Utility.buildDataStats(result));
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            if(result.equals("You have reached maximum request limit.")){
+                CallService callService = new CallService(this,this, Constant.SERVICE_NO_LOADING);
+                callService.execute("dayone/country/indonesia", Constant.METHOD_GET);
+            }else{
+                GlobalVar.getInstance().setDataStatsCountry(Utility.buildDataStats(result));
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
         }else{
             try {
                 JSONObject jsonObject = new JSONObject(result);

@@ -15,19 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fadhilah.ramadhan.covid19stats.R;
+import fadhilah.ramadhan.covid19stats.component.ProgresDialog;
 import fadhilah.ramadhan.covid19stats.model.DataStats;
 import fadhilah.ramadhan.covid19stats.util.Constant;
 import fadhilah.ramadhan.covid19stats.util.FontUtils;
 
 public class StatisticListAdapter extends BaseAdapter implements Filterable {
     private Context context;
-    private List<DataStats> dataStats,dataStatsSearch;
+    private List<DataStats> dataStats,dataStatsSearch = new ArrayList<>();
     private DecimalFormat formatter = new DecimalFormat("#,###,###");
 
-    public StatisticListAdapter(Context context, List<DataStats> dataStats){
+    public StatisticListAdapter(Context context,List<DataStats> dataStats){
         this.context = context;
         this.dataStats = dataStats;
-        this.dataStatsSearch = dataStats;
+        this.dataStatsSearch.add(dataStats.get(0));
+    }
+
+    public void loadMore(ProgresDialog loading){
+        this.dataStatsSearch.addAll(dataStats);
+        loading.dismiss();
     }
 
     @Override
@@ -35,12 +41,14 @@ public class StatisticListAdapter extends BaseAdapter implements Filterable {
         return  dataStatsSearch.size();
     }
 
+    public int getSize(){
+        return  dataStats.size();
+    }
+
     @Override
     public DataStats getItem(int position) {
         DataStats dataStats = new DataStats();
-        if(getCount() == position){
-            dataStats = dataStatsSearch.get(position-1);
-        }else{
+        if(dataStatsSearch.size() > position){
             dataStats = dataStatsSearch.get(position);
         }
         return dataStats;
