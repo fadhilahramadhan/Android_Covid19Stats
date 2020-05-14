@@ -89,7 +89,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
 
         titleStatText.append(" Indonesia");
 
-        activeCaseText.setText(getString(R.string.label_activeCase) +"\n"+formatter.format(dataStats.getActiveCases()));
+        activeCaseText.setText(getString(R.string.label_positive) +"\n"+formatter.format(dataStats.getPostive()));
         curesText.setText(getString(R.string.label_cured) +"\n"+ formatter.format(dataStats.getCured()));
         deathText.setText(getString(R.string.label_death) +"\n"+formatter.format(dataStats.getDeath()));
         dateStatsText.setText(Utility.dateFormat(Constant.SIMPLE_DATE, dataStats.getDate()));

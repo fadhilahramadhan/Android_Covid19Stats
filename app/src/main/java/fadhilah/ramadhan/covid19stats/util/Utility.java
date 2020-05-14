@@ -37,9 +37,6 @@ public class Utility {
     private Utility(){
     }
 
-    public static void clearGlobalVariable(){
-        GlobalVar.getInstance().setDataStatsCountry(null);
-    }
 
     public static final List<DataStats> buildDataStats(String json) {
         dataStatsList = new ArrayList<DataStats>();
@@ -110,30 +107,6 @@ public class Utility {
         return outputFormat.format(date);
     }
 
-    public static void setListViewHeight(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            return;
-        }
-
-        int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            if (listItem instanceof ViewGroup)
-                listItem.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-    }
-
-    public static boolean StringContainAnywhere(String param, String search){
-        return param.toLowerCase().matches("(?i).*"+ search.toLowerCase() +".*");
-    }
-
     public static boolean  cekValidResult(String result, Activity activity){
 
         try{
@@ -149,7 +122,6 @@ public class Utility {
                         dialogs.setTitleandContent(activity.getString(R.string.header_message), message, activity.getString(R.string.button_close));
 
                     return false;
-                }else{
                 }
             }
         }catch (JSONException e) {

@@ -10,12 +10,13 @@ public class DataStats implements Parcelable {
     private int postive, activeCases,cured,death;
     private String country, countryCode, date;
 
-    public DataStats(@Nullable String country, @Nullable int positive, @Nullable int cured, @Nullable int death){
+    public DataStats(@Nullable DataStats dataStats){
         super();
-        this.country = country;
-        this.postive = positive;
-        this.cured   = cured;
-        this.death   = death;
+        this.country = dataStats.getCountry();
+        this.postive = dataStats.getPostive();
+        this.cured   = dataStats.getCured();
+        this.death   = dataStats.getDeath();
+        this.countryCode = dataStats.getCountryCode();
     }
 
     public int getActiveCases() {

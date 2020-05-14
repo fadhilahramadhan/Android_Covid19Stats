@@ -239,7 +239,7 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
 
             requestTask = 2;
             CallService callService = new CallService(getContext(),this);
-            callService.execute("dayone/country/"+dataStats.getCountry(), Constant.METHOD_GET);
+        callService.execute("dayone/country/"+dataStats.getCountryCode(), Constant.METHOD_GET);
     }
 
     public class LoadingStatisticFragment  extends AsyncTask<Object, List<DataStats>, List<DataStats>> {

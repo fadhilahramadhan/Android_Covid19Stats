@@ -28,7 +28,6 @@ public class StatisticListAdapter extends BaseAdapter implements Filterable {
     public StatisticListAdapter(Context context,List<DataStats> dataStats){
         this.context = context;
         this.dataStats = dataStats;
-        this.dataStatsSearch.add(dataStats.get(0));
     }
 
     public void loadMore(ProgresDialog loading){
@@ -41,9 +40,6 @@ public class StatisticListAdapter extends BaseAdapter implements Filterable {
         return  dataStatsSearch.size();
     }
 
-    public int getSize(){
-        return  dataStats.size();
-    }
 
     @Override
     public DataStats getItem(int position) {
@@ -89,28 +85,21 @@ public class StatisticListAdapter extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence constraint,FilterResults results) {
 
-                dataStatsSearch = (ArrayList<DataStats>) results.values; // has the filtered values
-                notifyDataSetChanged();  // notifies the data with new filtered values
+                dataStatsSearch = (ArrayList<DataStats>) results.values;
+                notifyDataSetChanged();
             }
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
+                FilterResults results = new FilterResults();
                 ArrayList<DataStats> FilteredArrList = new ArrayList<DataStats>();
 
                 if (dataStats == null) {
-                    dataStats = new ArrayList<DataStats>(dataStatsSearch); // saves the original data in mOriginalValues
+                    dataStats = new ArrayList<DataStats>(dataStatsSearch);
                 }
 
-                /********
-                 *
-                 *  If constraint(CharSequence that is received) is null returns the mOriginalValues(Original) values
-                 *  else does the Filtering and returns FilteredArrList(Filtered)
-                 *
-                 ********/
                 if (constraint == null || constraint.length() == 0) {
 
-                    // set the Original result to return
                     results.count = dataStats.size();
                     results.values = dataStats;
                 } else {
@@ -118,10 +107,10 @@ public class StatisticListAdapter extends BaseAdapter implements Filterable {
                     for (int i = 0; i < dataStats.size(); i++) {
                         String data = dataStats.get(i).getCountry();
                         if (data.toLowerCase().startsWith(constraint.toString())) {
-                            FilteredArrList.add(new DataStats(dataStats.get(i).getCountry(), dataStats.get(i).getPostive(), dataStats.get(i).getCured(), dataStats.get(i).getDeath()));
+                            FilteredArrList.add(new DataStats(dataStats.get(i)));
                         }
                     }
-                    // set the Filtered result to return
+
                     results.count = FilteredArrList.size();
                     results.values = FilteredArrList;
                 }

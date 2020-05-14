@@ -2,6 +2,7 @@ package fadhilah.ramadhan.covid19stats.adapter;
 
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,26 +31,21 @@ public class DetailStatisticAdapter extends BaseAdapter {
     private FitChart detailDataStats;
     private LinearLayout dateLayout;
     private List<Boolean> dateShow = new ArrayList<Boolean>();
-    private String date;
     private TextView postiveUpDown, activeUpDown, recoveredUpDown, deathUpDown;
     private ImageView postiveUpDownImg, activeUpDownImg, recoveredUpDownImg, deathUpDownImg;
     private LinearLayout postiveUpDownLayout, activeUpDownLayout, recoveredUpDownLayout, deathUpDownLayout;
 
     public DetailStatisticAdapter(List<DataStats> dataStats, Context context) {
-        this.dataStats = dataStats;
+        this.dataStats = descending(dataStats);
         this.context = context;
+    }
 
-        date = Utility.dateFormat(Constant.SIMPLE_DATE, getItem(0).getDate());
-        for(int x = 0; x < getCount(); x++){
-            if(date.equals(Utility.dateFormat(Constant.SIMPLE_DATE, getItem(x).getDate()))){
-                dateShow.add(true);
-                if(x != getCount()-1){
-                    date = Utility.dateFormat(Constant.SIMPLE_DATE, getItem(x+1).getDate());
-                }
-            }else{
-                dateShow.add(false);
-            }
+    public List<DataStats> descending(List<DataStats> dataStats){
+        List<DataStats> data = new ArrayList<>();
+        for(int x = dataStats.size()-1; x >= 0; x--){
+            data.add(dataStats.get(x));
         }
+        return data;
     }
 
     @Override
@@ -103,32 +99,29 @@ public class DetailStatisticAdapter extends BaseAdapter {
 
         buildStats(position);
 
-        if(dateShow.get(position)){
-            dateLayout.setVisibility(View.VISIBLE);
-            dateHeader.setText(Utility.dateFormat(Constant.SIMPLE_DATE, getItem(position).getDate()));
-        }
+        dateHeader.setText(Utility.dateFormat(Constant.SIMPLE_DATE, getItem(position).getDate()));
 
-        if(position != 0){
-            if(getItem(position).getPostive() != getItem(position-1).getPostive()){
-                int total =   getItem(position).getPostive()- getItem(position-1).getPostive();
+        if(position < getCount()-1){
+            if(getItem(position).getPostive() != getItem(position+1).getPostive()){
+                int total =   getItem(position).getPostive()- getItem(position+1).getPostive();
                 postiveUpDown.setText(String.valueOf(total));
                 postiveUpDownLayout.setVisibility(View.VISIBLE);
             }
-            if(getItem(position).getActiveCases() != getItem(position-1).getActiveCases()){
-                int total =   getItem(position).getActiveCases()-getItem(position-1).getActiveCases() ;
+            if(getItem(position).getActiveCases() != getItem(position+1).getActiveCases()){
+                int total =   getItem(position).getActiveCases()-getItem(position+1).getActiveCases() ;
                 if(total < 0){
-                    total =   getItem(position-1).getActiveCases() - getItem(position).getActiveCases();
+                    total =   getItem(position+1).getActiveCases() - getItem(position).getActiveCases();
                 }
                 activeUpDown.setText(String.valueOf(total));
                 activeUpDownLayout.setVisibility(View.VISIBLE);
             }
-            if(getItem(position).getCured() != getItem(position-1).getCured()){
-                int total =  getItem(position).getCured()- getItem(position-1).getCured();
+            if(getItem(position).getCured() != getItem(position+1).getCured()){
+                int total =  getItem(position).getCured()- getItem(position+1).getCured();
                 recoveredUpDown.setText(String.valueOf(total));
                 recoveredUpDownLayout.setVisibility(View.VISIBLE);
             }
-            if(getItem(position).getDeath() != getItem(position-1).getDeath()){
-                int total =   getItem(position).getDeath()-getItem(position-1).getDeath();
+            if(getItem(position).getDeath() != getItem(position+1).getDeath()){
+                int total =   getItem(position).getDeath()-getItem(position+1).getDeath();
                 deathUpDown.setText(String.valueOf(total));
                 deathUpDownLayout.setVisibility(View.VISIBLE);
             }
