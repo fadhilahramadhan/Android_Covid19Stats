@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/bg_Blue"
+            android:background="@color/bg_layout"
             android:padding="20dp">
             <ImageView
                 android:id="@+id/image"

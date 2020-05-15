@@ -116,8 +116,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
                 editor.apply();
-                getActivity().finish();
-                startActivity(getActivity().getIntent());
+                getActivity().recreate();
             }
         });
 
@@ -142,7 +141,7 @@ public class HomeFragment extends BaseGlobalVar implements View.OnClickListener 
         homeDataStats.setMinValue(0f);
 
         Collection<FitChartValue> values = new ArrayList<>();
-        values.add(new FitChartValue((float)dataStats.getActiveCases(), getResources().getColor(R.color.bg_Blue)));
+        values.add(new FitChartValue((float)dataStats.getPostive(), getResources().getColor(R.color.bg_Blue)));
         values.add(new FitChartValue((float)dataStats.getCured(), getResources().getColor(R.color.bg_Green)));
         values.add(new FitChartValue((float)dataStats.getDeath(), getResources().getColor(R.color.bg_Red)));
         homeDataStats.setValues(values);

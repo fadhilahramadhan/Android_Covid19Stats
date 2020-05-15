@@ -15,6 +15,9 @@
     <color name="bg_Green">#67cfa5</color>
     <color name="bg_Red">#ed605e</color>
 
+    <color name="bg_layout">#7790c5</color>
+    <color name="bg_loading">#ffff</color>
+
     <color name="mode">#ffff</color>
     <color name="modeText">#000000</color>
 

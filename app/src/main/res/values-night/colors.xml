@@ -6,16 +6,19 @@
 
     <color name="colorText">#FFFFFF</color>
     <color name="colorTextDark">#FFFFFF</color>
-    <color name="colorTextOnLayout">#2E2929</color>
+    <color name="colorTextOnLayout">#FFFFFF</color>
 
-    <color name="colorLight">#383838</color>
+    <color name="colorLight">#1e1e1e</color>
     <color name="colorDark">#121212</color>
 
-    <color name="bg_Blue">#A1B7E9</color>
-    <color name="bg_Green">#9CE6C4</color>
-    <color name="bg_Red">#FFA3A2</color>
+    <color name="bg_Blue">#46b5d1</color>
+    <color name="bg_Green">#4ecca3</color>
+    <color name="bg_Red">#e14594</color>
 
-    <color name="mode">#121212</color>
+    <color name="bg_layout">#1e1e1e</color>
+    <color name="bg_loading">#1e1e1e</color>
+
+    <color name="mode">#000000</color>
     <color name="modeText">#FFFFFF</color>
 
     <color name="white">#ffff</color>

@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:theme="@style/NormalTextTheme"
                         android:layout_marginLeft="10dp"
-                        android:textColor="@color/colorDark"
+                        android:textColor="@color/colorTextDark"
                         android:layout_weight="0"
                         android:text=": 12000"/>
                     <LinearLayout
