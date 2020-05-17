@@ -16,7 +16,7 @@ public final class Constant {
     public static final String FONT_ITALIC      = "Acumin-ItPro.otf";
     public static final String FONT_BOLD_ITALIC = "Acumin-BdItPro.otf";
 
-    public static final String SIMPLE_DATE  = "dd MMMM YYYY";
+    public static final String SIMPLE_DATE  = "dd MMMM yyyy";
 
     public static final String INDONESIA = "id";
     public static final String ENGLISH = "en";

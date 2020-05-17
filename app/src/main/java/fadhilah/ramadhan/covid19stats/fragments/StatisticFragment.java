@@ -60,6 +60,7 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
     private StatisticListAdapter adapter;
     private BottomSheetBehavior bottomSheetBehavior;
     private LinearLayout layoutTop;
+    private RelativeLayout statsitiFragmentLayout;
     private String result;
     private ProgresDialog loading;
 
@@ -80,6 +81,7 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
         dateText                = v.findViewById(R.id.dateText);
         search                  = v.findViewById(R.id.search);
         layoutTop               = v.findViewById(R.id.layoutTop);
+        statsitiFragmentLayout  = v.findViewById(R.id.statsitiFragmentLayout);
 
         RelativeLayout bottomSheetLayout
                 = (RelativeLayout) v.findViewById(R.id.layoutStatisticGlobal);
@@ -113,6 +115,15 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        layoutTop.getViewTreeObserver().addOnDrawListener(new ViewTreeObserver.OnDrawListener() {
+            @Override
+            public void onDraw() {
+                int height = (int) statsitiFragmentLayout.getHeight() - (int)layoutTop.getHeight();
+                GlobalVar.getInstance().setLayoutStatisticHeight(height);
+                bottomSheetBehavior.setPeekHeight(height);
             }
         });
 
@@ -295,17 +306,12 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
             curesText.setText( getContext().getString(R.string.label_cured) +"\n"+ formatter.format(dataStatsGlobal.getCured()));
             deathText.setText( getContext().getString(R.string.label_death) +"\n"+formatter.format(dataStatsGlobal.getDeath()));
 
-            loadList(result);
-
             dateText.setText(Utility.dateFormat(Constant.SIMPLE_DATE, dataStatsCountries.get(0).getDate()));
             buildStats(dataStatsGlobal);
-            result = getTop5(result);
-            topCountriesSlider.setAdapter(new TopCountriesAdapter(getContext(), (ArrayList<DataStats>) result));
+            List<DataStats> top5 = getTop5(result);
+            topCountriesSlider.setAdapter(new TopCountriesAdapter(getContext(), (ArrayList<DataStats>) top5));
 
-            int height = layoutTop.getHeight() - 25;
-            GlobalVar.getInstance().setLayoutStatisticHeight(height);
-            bottomSheetBehavior.setPeekHeight(height);
-
+            loadList(result);
         }
 
 
@@ -317,6 +323,7 @@ public class StatisticFragment extends BaseGlobalVar implements  AsyncTaskComple
         adapter = new StatisticListAdapter(getContext(), dataStatsCountries);
         statisticList.setAdapter(adapter);
         adapter.loadMore(loading);
+
     }
 
 

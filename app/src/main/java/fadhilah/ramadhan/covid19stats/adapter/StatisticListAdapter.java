@@ -8,7 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -17,6 +20,7 @@ import java.util.List;
 import fadhilah.ramadhan.covid19stats.R;
 import fadhilah.ramadhan.covid19stats.component.ProgresDialog;
 import fadhilah.ramadhan.covid19stats.model.DataStats;
+import fadhilah.ramadhan.covid19stats.model.GlobalVar;
 import fadhilah.ramadhan.covid19stats.util.Constant;
 import fadhilah.ramadhan.covid19stats.util.FontUtils;
 
@@ -33,6 +37,7 @@ public class StatisticListAdapter extends BaseAdapter implements Filterable {
     public void loadMore(ProgresDialog loading){
         this.dataStatsSearch.addAll(dataStats);
         loading.dismiss();
+
     }
 
     @Override

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayoutBasePage"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top|center"
     android:orientation="vertical">
 
      <RelativeLayout
+         android:id="@+id/statsitiFragmentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp">
+            android:layout_marginLeft="20dp"
+         android:layout_marginRight="20dp">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
